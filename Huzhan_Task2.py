@@ -2,8 +2,7 @@ import math
 
 
 # Programming Lab2
-# Huzhan Sofia
-# KB 14308564
+
 def get_float(var_name):
     while True:
         try:

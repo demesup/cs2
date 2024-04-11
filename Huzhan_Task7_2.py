@@ -1,9 +1,3 @@
-# Programming:Task 7
-# Huzhan Sofiia, KB 14308564
-
-print("‘Programming’:Task 7.2\nHuzhan Sofiia, KB 14308564")
-
-
 # Напишіть рекурсивну функцію, яка перемножує два натуральних числа, не
 # використовуя операції множення.
 

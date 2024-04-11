@@ -1,8 +1,3 @@
-# Programming:Task 7
-# Huzhan Sofiia, KB 14308564
-
-print("‘Programming’:Task 7.1\nHuzhan Sofiia, KB 14308564")
-
 
 def get_float(var_name, condition=lambda v: False):
     while True:

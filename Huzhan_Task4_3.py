@@ -1,10 +1,3 @@
-# Programming:Task 4.1
-# Huzhan Sofiia, FB-31, 11
-
-print("‘Programming’:Task 4.3")
-print("Huzhan Sofiia, FB-31, 11")
-
-
 def get_positive_float(message):
     while True:
         try:

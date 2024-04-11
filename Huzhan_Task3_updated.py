@@ -1,10 +1,6 @@
 from math import *
 
 # ‘Programming’, Task 1"
-# Huzhan Sofiia, FB-31, KB 14308564
-
-print("‘Programming’:Task 3")
-print("Huzhan Sofiia, FB-31, KB 14308564")
 
 while True:
     try:

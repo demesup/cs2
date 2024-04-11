@@ -1,10 +1,6 @@
 from math import *
 
 # Programming:Task 4.1
-# Huzhan Sofiia, FB-31, 11
-
-print("‘Programming’:Task 4.1")
-print("Huzhan Sofiia, FB-31, 11")
 
 index = 0
 current = 0

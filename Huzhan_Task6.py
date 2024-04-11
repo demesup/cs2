@@ -1,9 +1,4 @@
 # Programming:Task 6
-# Huzhan Sofiia, KB 14308564
-
-print("‘Programming’:Task 4.3\nHuzhan Sofiia, KB 14308564")
-
-
 def find_subtuple(tup1, tup2):
     index = None
     sub = None
