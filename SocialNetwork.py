@@ -1,19 +1,23 @@
-def find_friends(graph, user):
-    direct_friends = list(graph[user])
+def find_friends(graph, root):
+    direct_friends = []
     friends_of_friends = set()
 
     visited = set()
-    queue = [user]
-    visited.add(user)
+    queue = [(root, 0)]
+    visited.add(root)
 
     while queue:
-        node = queue.pop(0)
+        node, level = queue.pop(0)
+        if level == 2:
+            break
         for neighbor in graph[node]:
             if neighbor not in visited:
                 visited.add(neighbor)
-                if neighbor not in direct_friends:
+                if level == 0:
+                    direct_friends.append(neighbor)
+                elif level == 1:
                     friends_of_friends.add(neighbor)
-                queue.append(neighbor)
+                queue.append((neighbor, level + 1))
 
     return direct_friends, friends_of_friends
 
@@ -29,7 +33,7 @@ def check_friendship(root, friends, graph):
 graph = {
     'Тарас': ['Параска', 'Омелько', 'Панас'],
     'Параска': ['Тарас', 'Омелько', 'Марфа'],
-    'Омелько': ['Тарас', 'Петро', 'Панас'],
+    'Омелько': ['Тарас', 'Петро', 'Марія'],
     'Марфа': ['Параска', 'Панас'],
     'Панас': ['Омелько', 'Марфа'],
     'Остап': ['Іванко', 'Андрійко'],
