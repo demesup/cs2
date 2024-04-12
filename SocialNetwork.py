@@ -1,28 +1,21 @@
-def bfs(graph, start):
+def find_friends(graph, user):
+    direct_friends = list(graph[user])
+    friends_of_friends = set()
+
     visited = set()
-    queue = [start]
-    visited.add(start)
-    result = []
+    queue = [user]
+    visited.add(user)
+
     while queue:
         node = queue.pop(0)
-        result.append(node)
         for neighbor in graph[node]:
             if neighbor not in visited:
                 visited.add(neighbor)
+                if neighbor not in direct_friends:
+                    friends_of_friends.add(neighbor)
                 queue.append(neighbor)
-    return result
 
-
-def find_friends(graph, root):
-    friends = list(graph[root])
-    friends_of_friends = set()
-
-    for friend in friends:
-        bfs_result = bfs(graph, friend)
-        for friend_of_friend in bfs_result:
-            if friend_of_friend != root and friend_of_friend not in friends:
-                friends_of_friends.add(friend_of_friend)
-    return friends, friends_of_friends
+    return direct_friends, friends_of_friends
 
 
 def check_friendship(root, friends, graph):
@@ -36,11 +29,11 @@ def check_friendship(root, friends, graph):
 graph = {
     'Тарас': ['Параска', 'Омелько', 'Панас'],
     'Параска': ['Тарас', 'Омелько', 'Марфа'],
-    'Омелько': ['Тарас', 'Параска', 'Панас'],
+    'Омелько': ['Тарас', 'Петро', 'Панас'],
     'Марфа': ['Параска', 'Панас'],
     'Панас': ['Омелько', 'Марфа'],
     'Остап': ['Іванко', 'Андрійко'],
-    'Іванко': ['Остап', 'Андрійко'],
+    'Іванко': ['Тарас', 'Параска'],
     'Андрійко': ['Остап', 'Іванко'],
     'Іван': ['Марія', 'Петро'],
     'Марія': ['Іван', 'Петро'],
