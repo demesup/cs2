@@ -1,6 +1,20 @@
 from collections import defaultdict
 
 
+class Graph:
+    def __init__(self):
+        self.graph = defaultdict(list)
+
+    def add_edge(self, start, end, weight):
+        self.graph[start].append((end, weight))
+
+    def get_neighbors(self, node):
+        return self.graph[node]
+
+    def get_all_nodes(self):
+        return self.graph.keys()
+
+
 def dfs(graph, start, end, path=None, weight=0):
     if path is None:
         path = []
@@ -9,7 +23,7 @@ def dfs(graph, start, end, path=None, weight=0):
         return path, weight
     path_found = None
     shortest_weight = float('inf')
-    for node, edge_weight in graph[start]:
+    for node, edge_weight in graph.get_neighbors(start):
         if node not in path:
             new_path, new_weight = dfs(graph, node, end, path, weight + edge_weight)
             if new_path and new_weight < shortest_weight:
@@ -29,7 +43,7 @@ def dfs_nodes(graph, start, end, path=None, weight=0):
         return path, weight
     shortest = None
     shortest_weight = float('inf')
-    for node, edge_weight in graph[start]:
+    for node, edge_weight in graph.get_neighbors(start):
         if node not in path:
             node_path, node_weight = dfs_nodes(graph, node, end, path, weight + edge_weight)
             if node_path and (node_weight < shortest_weight or (
@@ -40,22 +54,22 @@ def dfs_nodes(graph, start, end, path=None, weight=0):
 
 
 def dijkstra(graph, start):
-    distances = {node: float('inf') for node in graph}
+    distances = {node: float('inf') for node in graph.get_all_nodes()}
     distances[start] = 0
 
     visited = set()
 
-    while len(visited) < len(graph):
+    while len(visited) < len(graph.get_all_nodes()):
         min_distance = float('inf')
         min_node = None
-        for node in graph:
+        for node in graph.get_all_nodes():
             if node not in visited and distances[node] < min_distance:
                 min_distance = distances[node]
                 min_node = node
 
         visited.add(min_node)
 
-        for neighbor, weight in graph[min_node]:
+        for neighbor, weight in graph.get_neighbors(min_node):
             distance = distances[min_node] + weight
             if distance < distances[neighbor]:
                 distances[neighbor] = distance
@@ -63,15 +77,29 @@ def dijkstra(graph, start):
     return distances
 
 
-network = defaultdict(list)
-network['Broadcast'] = [('A', 0)]
-network['A'] = [('B', 2), ('C', 3)]
-network['B'] = [('A', 2), ('C', 1), ('D', 1), ('E', 4)]
-network['C'] = [('A', 3), ('B', 1), ('F', 5), ('Listener 1', 0)]
-network['D'] = [('E', 1), ('B', 1), ('Listener 2', 0)]
-network['E'] = [('F', 1), ('B', 1), ('D', 1), ('Listener 3', 0)]
-network['F'] = [('G', 1), ('E', 1), ('C', 5)]
-network['G'] = [('Listener 4', 0)]
+network = Graph()
+network.add_edge('Broadcast', 'A', 0)
+network.add_edge('A', 'B', 2)
+network.add_edge('A', 'C', 3)
+network.add_edge('B', 'A', 2)
+network.add_edge('B', 'C', 1)
+network.add_edge('B', 'D', 1)
+network.add_edge('B', 'E', 4)
+network.add_edge('C', 'A', 3)
+network.add_edge('C', 'B', 1)
+network.add_edge('C', 'F', 5)
+network.add_edge('C', 'Listener 1', 0)
+network.add_edge('D', 'E', 1)
+network.add_edge('D', 'B', 1)
+network.add_edge('D', 'Listener 2', 0)
+network.add_edge('E', 'F', 1)
+network.add_edge('E', 'B', 1)
+network.add_edge('E', 'D', 1)
+network.add_edge('E', 'Listener 3', 0)
+network.add_edge('F', 'G', 1)
+network.add_edge('F', 'E', 1)
+network.add_edge('F', 'C', 5)
+network.add_edge('G', 'Listener 4', 0)
 
 start_node = 'Broadcast'
 listeners = ['Listener 1', 'Listener 2', 'Listener 3', 'Listener 4']
