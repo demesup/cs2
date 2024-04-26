@@ -61,9 +61,9 @@ for listener in listeners:
     else:
         print(f"No path found to {listener}.")
 
-    # shortest_path_to_listener_with_skip, total_weight_to_listener_with_skip = dfs_nodes(network, start_node, listener)
-    # if shortest_path_to_listener_with_skip:
-    #     print(f"Shortest path to {listener} (with nodes):", shortest_path_to_listener_with_skip)
-    #     print(f"Total weight to {listener} (with nodes):", total_weight_to_listener_with_skip)
-    # else:
-    #     print(f"No path found to {listener} with skipping.")
+    shortest_path_to_listener_with_skip, total_weight_to_listener_with_skip = dfs_nodes(network, start_node, listener)
+    if shortest_path_to_listener_with_skip:
+        print(f"Shortest path to {listener} (with nodes):", shortest_path_to_listener_with_skip)
+        print(f"Total weight to {listener} (with nodes):", total_weight_to_listener_with_skip)
+    else:
+        print(f"No path found to {listener}.")
