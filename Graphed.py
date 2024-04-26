@@ -53,30 +53,6 @@ def dfs_nodes(graph, start, end, path=None, weight=0):
     return shortest, shortest_weight
 
 
-def dijkstra(graph, start):
-    distances = {node: float('inf') for node in graph.get_all_nodes()}
-    distances[start] = 0
-
-    visited = set()
-
-    while len(visited) < len(graph.get_all_nodes()):
-        min_distance = float('inf')
-        min_node = None
-        for node in graph.get_all_nodes():
-            if node not in visited and distances[node] < min_distance:
-                min_distance = distances[node]
-                min_node = node
-
-        visited.add(min_node)
-
-        for neighbor, weight in graph.get_neighbors(min_node):
-            distance = distances[min_node] + weight
-            if distance < distances[neighbor]:
-                distances[neighbor] = distance
-
-    return distances
-
-
 network = Graph()
 network.add_edge('Broadcast', 'A', 0)
 network.add_edge('A', 'B', 2)
@@ -117,12 +93,5 @@ for listener in listeners:
     if shortest_path_to_listener_with_skip:
         print(f"Shortest path to {listener} (with nodes):", shortest_path_to_listener_with_skip)
         print(f"Total weight to {listener} (with nodes):", total_weight_to_listener_with_skip)
-    else:
-        print(f"No path found to {listener}.")
-
-    shortest_path_d, total_weight_d = dfs(network, start_node, listener)
-    if shortest_path:
-        print(f"D  Shortest path to {listener}:", shortest_path_d)
-        print(f"Total weight to {listener}:", total_weight_d)
     else:
         print(f"No path found to {listener}.")
